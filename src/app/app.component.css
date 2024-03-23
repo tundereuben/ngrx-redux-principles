@@ -1,0 +1,15 @@
+.container {
+    padding: 2rem;
+    border: solid 1px #eee;
+}
+
+li {
+    list-style-type: none;
+    margin-right: 2rem;
+    float: left;
+}
+
+li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

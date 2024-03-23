@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-4 bg-light py-2">
+
+            <div class="card text-center">
+                <div class="card-header fw-bold">
+                  Featured
+                </div>
+                <div class="card-body" *ngIf="products$ | async as productList">
+                    <ng-container *ngFor="let product of productList">
+                        <li 
+                            (click)="selectProduct(product)" 
+                            [ngStyle]="(currentProduct$ | async)?.id === product.id ? {'background-color': '#0d6efd', 'color': '#fff'} : {'background-color': ''}"
+                        >
+                            {{ product.title  | slice: 0: 20 | uppercase }}
+                            <span *ngIf="displayCode$ | async">
+                                ({{ product.id}})
+                            </span>
+                        </li>
+                    </ng-container>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <input 
+                        type="checkbox" 
+                        name="showCode"
+                        (change)="showHideCode($event)"
+                        [checked]="displayCode$ | async"
+                    >
+                    Show product code
+                    <button class="btn btn-primary btn-sm float-end" (click)="initializeProduct()">Add</button>
+                </div>
+              </div>
+              <div *ngIf="errorMessages$ | async as errorMessages" class="alert alert-danger">
+                Error: {{ errorMessages }}
+              </div>
+        </div>
+        <div class="col-sm-8">
+            <app-edit-product></app-edit-product>
+        </div>
+    </div>
+</div>
